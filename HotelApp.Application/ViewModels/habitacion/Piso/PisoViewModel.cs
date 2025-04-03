@@ -1,6 +1,6 @@
-﻿namespace HotelApp.Core.Domain.Entities.habitacion
+﻿namespace HotelApp.Application.ViewModels.habitacion.Piso
 {
-    public class Piso
+    public class PisoViewModel
     {
         public int IdPiso { get; set; }
         public string Descripcion { get; set; }

@@ -1,15 +1,11 @@
-﻿
-namespace HotelApp.Core.Domain.Entities.habitacion
+﻿namespace HotelApp.Application.ViewModels.habitacion.Habitacion
 {
-    public class Habitacion
+    public class HabitacionViewModel
     {
         public int IdHabitacion { get; set; }
         public string Numero { get; set; }
         public string Detalle { get; set; }
         public decimal Precio { get; set; }
-        public int IdEstadoHabitacion { get; set; }
-        public int IdPiso { get; set; }
-        public int IdCategoria { get; set; }
         public bool? Estado { get; set; } = true;
     }
 }

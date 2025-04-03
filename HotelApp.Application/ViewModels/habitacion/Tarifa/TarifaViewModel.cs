@@ -1,10 +1,11 @@
-﻿
-namespace HotelApp.Core.Domain.Entities.habitacion
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+
+namespace HotelApp.Application.ViewModels.habitacion.Tarifa
 {
-    public class Tarifa
+    public class TarifaViewModel
     {
         public int IdTarifa { get; set; }
-        public int IdHabitacion { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
         public decimal PrecioPorNoche { get; set; }

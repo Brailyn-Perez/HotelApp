@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\HotelApp.Application\HotelApp.Application.csproj" />
     <ProjectReference Include="..\HotelApp.Core.Domain\HotelApp.Core.Domain.csproj" />
   </ItemGroup>

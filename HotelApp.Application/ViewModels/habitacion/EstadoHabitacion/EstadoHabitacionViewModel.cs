@@ -1,7 +1,6 @@
-﻿
-namespace HotelApp.Core.Domain.Entities.habitacion
+﻿namespace HotelApp.Application.ViewModels.habitacion.EstadoHabitacion
 {
-    public class EstadoHabitacion
+    public class EstadoHabitacionViewModel
     {
         public int IdEstadoHabitacion { get; set; }
         public string Descripcion { get; set; }
