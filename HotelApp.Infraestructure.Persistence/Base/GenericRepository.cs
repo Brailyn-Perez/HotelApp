@@ -1,7 +1,8 @@
-﻿using HotelApp.Core.Domain.Interfaces;
+﻿using HotelApp.Core.Domain.Base;
+using HotelApp.Core.Domain.Interfaces;
 using System.Net.Http.Json;
 
-namespace HotelApp.Application.Interfaces.Repository.Base
+namespace HotelApp.Infraestructure.Persistence.Base
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -14,18 +15,18 @@ namespace HotelApp.Application.Interfaces.Repository.Base
             _endpoint = endpoint;
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<ApiResponse<IEnumerable<T>>> GetAllAsync()
         {
             var response = await _httpClient.GetAsync(_endpoint);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<IEnumerable<T>>();
+            return await response.Content.ReadFromJsonAsync<ApiResponse<IEnumerable<T>>>();
         }
 
-        public virtual async Task<T> GetByIdAsync(int id)
+        public virtual async Task<ApiResponse<T>> GetByIdAsync(int id)
         {
             var response = await _httpClient.GetAsync($"{_endpoint}/{id}");
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<T>();
+            return await response.Content.ReadFromJsonAsync<ApiResponse<T>>();
         }
 
         public virtual async Task<T> AddAsync(T entity)
