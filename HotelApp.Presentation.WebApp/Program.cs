@@ -1,3 +1,6 @@
+using HotelApp.IOC.Application;
+using HotelApp.IOC.Infraestructure;
+
 namespace HotelApp.Presentation.WebApp
 {
     public class Program
@@ -8,7 +11,8 @@ namespace HotelApp.Presentation.WebApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddPersistenceServices();
+            builder.Services.AddApplicationServices();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
