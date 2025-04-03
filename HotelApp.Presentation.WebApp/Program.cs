@@ -13,6 +13,7 @@ namespace HotelApp.Presentation.WebApp
             builder.Services.AddControllersWithViews();
             builder.Services.AddPersistenceServices();
             builder.Services.AddApplicationServices();
+            builder.Services.AddHttpClient();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
