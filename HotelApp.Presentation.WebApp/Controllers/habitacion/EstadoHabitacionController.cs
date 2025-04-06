@@ -1,6 +1,5 @@
 ﻿using HotelApp.Application.Interfaces.Service;
 using HotelApp.Application.ViewModels.habitacion.EstadoHabitacion;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelApp.Presentation.WebApp.Controllers.habitacion
