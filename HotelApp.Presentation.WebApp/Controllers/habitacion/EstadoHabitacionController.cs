@@ -1,4 +1,5 @@
 ﻿using HotelApp.Application.Interfaces.Service;
+using HotelApp.Application.ViewModels.habitacion.EstadoHabitacion;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,31 +13,37 @@ namespace HotelApp.Presentation.WebApp.Controllers.habitacion
             _service = service;
         }
 
-        // GET: EstadoHabitacionController
         public async Task<IActionResult> Index()
         {
-            return View();
+            var estados = await _service.GeAll();
+            return View(estados);
         }
 
-        // GET: EstadoHabitacionController/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var estado = await _service.GeById(id);
+            return View(estado);
         }
 
-        // GET: EstadoHabitacionController/Create
+
         public async Task<IActionResult> Create()
         {
             return View();
         }
 
-        // POST: EstadoHabitacionController/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection collection)
+        public async Task<IActionResult> Create(CreateEstadoHabitacionViewModel vm)
         {
             try
             {
+
+                if (!ModelState.IsValid)
+                {
+                    return View(vm);
+                }
+                await _service.Save(vm);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -45,19 +52,23 @@ namespace HotelApp.Presentation.WebApp.Controllers.habitacion
             }
         }
 
-        // GET: EstadoHabitacionController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var estado = await _service.GeById(id);
+            return View(estado);
         }
 
-        // POST: EstadoHabitacionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, UpdateEstadoHabitacionViewModel vm)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(vm);
+                }
+                await _service.Update(vm);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -66,7 +77,6 @@ namespace HotelApp.Presentation.WebApp.Controllers.habitacion
             }
         }
 
-        // GET: EstadoHabitacionController/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
             return View();

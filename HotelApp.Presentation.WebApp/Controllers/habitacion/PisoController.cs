@@ -1,4 +1,5 @@
 ﻿using HotelApp.Application.Interfaces.Service;
+using HotelApp.Application.ViewModels.habitacion.Piso;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,31 +12,35 @@ namespace HotelApp.Presentation.WebApp.Controllers.habitacion
         {
             _service = service;
         }
-        // GET: PisoController
+
         public async Task<IActionResult> Index()
         {
-            return View();
+            var pisos = await _service.GeAll();
+            return View(pisos);
         }
 
-        // GET: PisoController/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var piso = await _service.GeById(id);
+            return View(piso);
         }
 
-        // GET: PisoController/Create
         public async Task<IActionResult> Create()
         {
             return View();
         }
 
-        // POST: PisoController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection collection)
+        public async Task<IActionResult> Create(CreatePisoViewModel vm)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(vm);
+                }
+                await _service.Save(vm);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -44,19 +49,24 @@ namespace HotelApp.Presentation.WebApp.Controllers.habitacion
             }
         }
 
-        // GET: PisoController/Edit/5
+        
         public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var piso = await _service.GeById(id);
+            return View(piso);
         }
 
-        // POST: PisoController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, UpdatePisoViewModel vm)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(vm);
+                }
+                await _service.Update(vm);
                 return RedirectToAction(nameof(Index));
             }
             catch

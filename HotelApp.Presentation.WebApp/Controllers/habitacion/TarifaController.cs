@@ -1,4 +1,5 @@
 ﻿using HotelApp.Application.Interfaces.Service;
+using HotelApp.Application.ViewModels.habitacion.Tarifa;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,31 +12,36 @@ namespace HotelApp.Presentation.WebApp.Controllers.habitacion
         {
             _service = service;
         }
-        // GET: TarifaController
+        
         public async Task<IActionResult> Index()
         {
-            return View();
+            var tarifas = await _service.GeAll();
+            return View(tarifas);
         }
 
-        // GET: TarifaController/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var tarifa = await _service.GeById(id);
+            return View(tarifa);
         }
 
-        // GET: TarifaController/Create
+
         public async Task<IActionResult> Create()
         {
             return View();
         }
 
-        // POST: TarifaController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection collection)
+        public async Task<IActionResult> Create(CreateTarifaViewModel vm)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(vm);
+                }
+                await _service.Save(vm);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -44,19 +50,24 @@ namespace HotelApp.Presentation.WebApp.Controllers.habitacion
             }
         }
 
-        // GET: TarifaController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var tarifa = await _service.GeById(id);
+
+            return View(tarifa);
         }
 
-        // POST: TarifaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, UpdateTarifaViewModel vm)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(vm);
+                }
+                await _service.Update(vm);
                 return RedirectToAction(nameof(Index));
             }
             catch

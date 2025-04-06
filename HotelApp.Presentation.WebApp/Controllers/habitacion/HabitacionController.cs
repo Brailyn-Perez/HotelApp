@@ -1,4 +1,5 @@
 ﻿using HotelApp.Application.Interfaces.Service;
+using HotelApp.Application.ViewModels.habitacion.Habitacion;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,31 +13,37 @@ namespace HotelApp.Presentation.WebApp.Controllers.habitacion
         {
             _service = service;
         }
-        // GET: HabitacionController
+        
         public async Task<IActionResult> Index()
         {
-            return View();
+            var habitacionList = await _service.GeAll();
+            return View(habitacionList);
         }
 
-        // GET: HabitacionController/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var habitacion = await _service.GeById(id);
+
+            return View(habitacion);
         }
 
-        // GET: HabitacionController/Create
         public async Task<IActionResult> Create()
         {
             return View();
         }
 
-        // POST: HabitacionController/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection collection)
+        public async Task<IActionResult> Create(CreateHabitacionViewModel vm)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(vm);
+                }
+                await _service.Save(vm);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -45,19 +52,23 @@ namespace HotelApp.Presentation.WebApp.Controllers.habitacion
             }
         }
 
-        // GET: HabitacionController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var habitacion = await _service.GeById(id);
+            return View(habitacion);
         }
 
-        // POST: HabitacionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, UpdateHabitacionViewModel vm)
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(vm);
+                }
+                await _service.Update(vm);
                 return RedirectToAction(nameof(Index));
             }
             catch
